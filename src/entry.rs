@@ -4,7 +4,9 @@ use serde::Deserialize;
 #[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "PascalCase")] 
 pub struct RecipientEntry {
+  #[serde(rename = "Recipient Name")] 
   name: Option<String>,
+  #[serde(rename = "Street Address")] 
   street: Option<String>,
   city: Option<String>,
   state: Option<String>,
