@@ -12,4 +12,4 @@ csv = "1.1"
 serde = { version = "1.0", features = ["derive"] }
 indicatif = "0.16"
 printpdf = "0.5.0"
-clap = "3"
+clap = { version = "3", features = ["derive"] }

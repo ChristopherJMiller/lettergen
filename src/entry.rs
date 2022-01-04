@@ -38,3 +38,17 @@ pub struct Recipient {
   state: String,
   zip_code: String,
 }
+
+impl Recipient {
+  pub fn get_letter_line_one(&self) -> String {
+    self.name.clone()
+  }
+
+  pub fn get_letter_line_two(&self) -> String {
+    self.street.clone()
+  }
+
+  pub fn get_letter_line_three(&self) -> String {
+    format!("{}, {} {}", self.city.clone(), self.state.clone(), self.zip_code.clone())
+  }
+}
