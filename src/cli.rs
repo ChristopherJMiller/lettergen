@@ -16,5 +16,8 @@ pub struct Cli {
   pub letter_height: f32,
 
   /// File Path to Font to Use
-  pub font: String
+  pub font: String,
+
+  /// File Path to Output PDF
+  pub output: String
 }
