@@ -1,0 +1,77 @@
+name: Build Project
+
+on:
+  push:
+    tags:
+      - *.*.*
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-windows:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+    - name: Install required packages
+      run: sudo apt-get install -y cmake mingw-w64 zip
+    - name: Install latest stable
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Install Windows Target
+      run: rustup target add x86_64-pc-windows-gnu
+    - name: Get Version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+    - name: Cache target
+      id: cache-windows-target
+      uses: actions/cache@v2
+      with:
+        path: target
+        key: ${{ runner.os }}-windows-target
+    - name: Build Windows App
+      env:
+        VERSION: ${{ steps.get_version.outputs.VERSION }}
+      run: cargo install --locked --root install --path . --target x86_64-pc-windows-gnu
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows${{ steps.get_version.outputs.VERSION }}.zip
+        path: windows
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+    - name: Install required packages
+      run: sudo apt-get install -y cmake mingw-w64 zip
+    - name: Install latest stable
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Get Version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+    - name: Cache target
+      id: cache-linux-target
+      uses: actions/cache@v2
+      with:
+        path: target
+        key: ${{ runner.os }}-linux-target
+    - name: Build Linux App
+      env:
+        VERSION: ${{ steps.get_version.outputs.VERSION }}
+      run: cargo install --locked --root install --path .
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux${{ steps.get_version.outputs.VERSION }}.zip
+        path: linux

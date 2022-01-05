@@ -2,7 +2,6 @@ use std::env;
 
 use andrew::text::load_font_file;
 use clap::Parser;
-use csv::Reader;
 use druid::{AppLauncher, WindowDesc};
 use gen::{generate_pdf, get_recipients};
 use indicatif::ProgressBar;

@@ -23,8 +23,7 @@ checksum = "aae1277d39aeec15cb388266ecc24b11c80469deae6067e17a1a7aa9e5c1f234"
 [[package]]
 name = "andrew"
 version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c4afb09dd642feec8408e33f92f3ffc4052946f6b20f32fb99c1f58cd4fa7cf"
+source = "git+https://github.com/ChristopherJMiller/andrew.git#28a357c0cf6c69f6eb7319fdea6402c8754fb9f1"
 dependencies = [
  "bitflags",
  "rusttype",
