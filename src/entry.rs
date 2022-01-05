@@ -1,22 +1,25 @@
-
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug, Clone)]
-#[serde(rename_all = "PascalCase")] 
+#[serde(rename_all = "PascalCase")]
 pub struct RecipientEntry {
-  #[serde(rename = "Recipient Name")] 
+  #[serde(rename = "Recipient Name")]
   name: Option<String>,
-  #[serde(rename = "Street Address")] 
+  #[serde(rename = "Street Address")]
   street: Option<String>,
   city: Option<String>,
   state: Option<String>,
-  #[serde(rename = "Zip Code")] 
+  #[serde(rename = "Zip Code")]
   zip_code: Option<String>,
 }
 
 impl RecipientEntry {
   pub fn is_valid(&self) -> bool {
-    self.name.is_some() && self.street.is_some() && self.city.is_some() && self.state.is_some() && self.zip_code.is_some()
+    self.name.is_some()
+      && self.street.is_some()
+      && self.city.is_some()
+      && self.state.is_some()
+      && self.zip_code.is_some()
   }
 }
 
@@ -51,6 +54,11 @@ impl Recipient {
   }
 
   pub fn get_letter_line_three(&self) -> String {
-    format!("{}, {} {}", self.city.clone(), self.state.clone(), self.zip_code.clone())
+    format!(
+      "{}, {} {}",
+      self.city.clone(),
+      self.state.clone(),
+      self.zip_code.clone()
+    )
   }
 }
