@@ -39,6 +39,12 @@ pub fn handle_generate_pdf(sink: ExtEventSink, data: LetterState) {
           .submit_command(PROGRESS, total_complete, Target::Auto)
           .expect("Failed to send command");
       },
+      || {
+        sink
+          .submit_command(PROGRESS, 0, Target::Auto)
+          .expect("Failed to send command")
+      },
+      || {},
     );
     sink
       .submit_command(PROGRESS_TOTAL_ITEMS, 0, Target::Auto)

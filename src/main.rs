@@ -20,7 +20,7 @@ fn main() {
     let args = LetterParams::parse();
     let font = load_font_file(args.font);
     let valid_entries = get_recipients(args.csv);
-    let progress = ProgressBar::new((valid_entries.len() - 1) as u64);
+    let progress = ProgressBar::new((valid_entries.len() - 1) as u64).with_message("Generating Letters");
     generate_pdf(
       valid_entries,
       font,
@@ -28,6 +28,11 @@ fn main() {
       args.letter_height,
       args.output,
       |_| progress.inc(1),
+      || progress.reset(),
+      || {
+        progress.finish_and_clear();
+        println!("Saving PDF to Disk...");
+      },
     );
   } else {
     // Launch UI

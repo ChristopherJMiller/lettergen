@@ -12,3 +12,4 @@ indicatif = "0.16"
 printpdf = "0.5.0"
 clap = { version = "3", features = ["derive"] }
 druid = "0.7"
+rayon = "1"
